@@ -1,5 +1,8 @@
 package com.example.codingchallenge.models
 
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
 data class StockTicker(
     var id: String? = null,
     var name: String? = null,
