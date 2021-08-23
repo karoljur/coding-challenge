@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="stockTickerViewModel"
+            type="com.example.codingchallenge.models.StockTickerViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/stock_ticker_vertical_margin">
+
+        <TextView
+            android:id="@+id/stockCompanyName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{stockTickerViewModel.stockTicker.companyType[0]}"
+            tools:text="Test text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/stockName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{stockTickerViewModel.stockTicker.name}"
+            tools:text="Stock name test"
+            app:layout_constraintTop_toBottomOf="@+id/stockCompanyName"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/stockPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{Double.toString(stockTickerViewModel.stockTicker.price)}"
+            app:layout_constraintTop_toBottomOf="@+id/stockName"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="5.15" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@{stockTickerViewModel.hasPriceIncreased() ? @drawable/ic_arrow_upward : @drawable/ic_arrow_downward}"
+            tools:src="@drawable/ic_arrow_upward"
+            android:layout_marginEnd="@dimen/stock_ticker_image_horizontal_margin"
+            android:contentDescription="@string/price_indicator" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

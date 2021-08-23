@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Coding Challenge</string>
+    <string name="price_indicator">Price indicator</string>
 </resources>

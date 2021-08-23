@@ -2,8 +2,11 @@ package com.example.codingchallenge.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.RecyclerView
 import com.example.codingchallenge.R
 import com.example.codingchallenge.models.StockTicker
+import com.example.codingchallenge.models.StockTickerViewModel
+import com.example.codingchallenge.ui.adapters.StockListAdapter
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
@@ -12,13 +15,25 @@ import org.java_websocket.handshake.ServerHandshake
 import java.lang.Exception
 import java.net.URI
 import javax.net.ssl.SSLSocketFactory
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var webSocketClient: WebSocketClient
+    private var recyclerView: RecyclerView? = null
+    private var adapter: StockListAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        recyclerView = findViewById(R.id.stockTickerRecycler)
+        adapter = StockListAdapter()
+        val layoutManager = LinearLayoutManager(this)
+        val dividerItemDecoration = DividerItemDecoration(this, layoutManager.orientation)
+        recyclerView?.layoutManager = layoutManager
+        recyclerView?.addItemDecoration(dividerItemDecoration)
+        recyclerView?.adapter = adapter
     }
 
     override fun onResume() {
@@ -69,7 +84,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun refreshUI(stockTickersList: List<StockTicker>?){
-
+        val viewModelsList = ArrayList<StockTickerViewModel>()
+        stockTickersList?.forEach { viewModelsList.add(StockTickerViewModel(it)) }
+        adapter?.submitList(viewModelsList)
     }
 
     private fun subscribe() {

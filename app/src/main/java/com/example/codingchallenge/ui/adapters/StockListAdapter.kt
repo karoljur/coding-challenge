@@ -1,24 +1,30 @@
 package com.example.codingchallenge.ui.adapters
 
-import android.view.View
+import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.codingchallenge.models.StockTicker
+import com.example.codingchallenge.BR
+import com.example.codingchallenge.databinding.ItemStockTickerBinding
+import com.example.codingchallenge.models.StockTickerViewModel
+import com.example.codingchallenge.utils.StockTickerDiffUtil
 
-class StockListAdapter: RecyclerView.Adapter<StockListAdapter.StockViewHolder>() {
-    private val data = ArrayList<StockTicker>()
-
+class StockListAdapter :
+    ListAdapter<StockTickerViewModel, StockListAdapter.StockViewHolder>(StockTickerDiffUtil()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StockViewHolder {
-        TODO("Not yet implemented")
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ItemStockTickerBinding.inflate(inflater, parent, false)
+        return StockViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: StockViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.bind(getItem(position))
     }
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+    class StockViewHolder(private val itemBinding: ItemStockTickerBinding) :
+        RecyclerView.ViewHolder(itemBinding.root) {
+        fun bind(stockTickerViewModel: StockTickerViewModel) {
+            itemBinding.setVariable(BR.stockTickerViewModel, stockTickerViewModel)
+        }
     }
-
-    class StockViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
 }
