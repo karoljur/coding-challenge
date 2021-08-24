@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Coding Challenge</string>
     <string name="price_indicator">Price indicator</string>
+    <string name="all_time_high">All time high: </string>
+    <string name="content_description_company_photo">Company photo</string>
 </resources>

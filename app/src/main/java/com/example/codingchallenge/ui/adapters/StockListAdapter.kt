@@ -7,9 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.codingchallenge.BR
 import com.example.codingchallenge.databinding.ItemStockTickerBinding
 import com.example.codingchallenge.models.StockTickerViewModel
+import com.example.codingchallenge.ui.listeners.StockListListener
 import com.example.codingchallenge.utils.StockTickerDiffUtil
 
-class StockListAdapter :
+class StockListAdapter(val stockListListener: StockListListener) :
     ListAdapter<StockTickerViewModel, StockListAdapter.StockViewHolder>(StockTickerDiffUtil()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StockViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -21,10 +22,11 @@ class StockListAdapter :
         holder.bind(getItem(position))
     }
 
-    class StockViewHolder(private val itemBinding: ItemStockTickerBinding) :
+    inner class StockViewHolder(private val itemBinding: ItemStockTickerBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
         fun bind(stockTickerViewModel: StockTickerViewModel) {
             itemBinding.setVariable(BR.stockTickerViewModel, stockTickerViewModel)
+            itemBinding.setVariable(BR.stockListListener, stockListListener)
         }
     }
 }

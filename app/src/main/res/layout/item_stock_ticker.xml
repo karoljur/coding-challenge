@@ -7,12 +7,16 @@
         <variable
             name="stockTickerViewModel"
             type="com.example.codingchallenge.models.StockTickerViewModel" />
+        <variable
+            name="stockListListener"
+            type="com.example.codingchallenge.ui.listeners.StockListListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/stock_ticker_vertical_margin">
+        android:layout_marginStart="@dimen/stock_ticker_vertical_margin"
+        android:onClickListener="@{() -> stockListListener.onStockClicked(stockTickerViewModel.stockTicker.id)}">
 
         <TextView
             android:id="@+id/stockCompanyName"
