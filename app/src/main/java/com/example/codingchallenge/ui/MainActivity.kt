@@ -97,8 +97,8 @@ class MainActivity : AppCompatActivity(), StockListListener {
     }
 
     override fun onStockClicked(id: String) {
-        val intent = Intent(baseContext, StockDetailDisplay::class.java)
-        intent.extras?.putString(STOCK_ID_KEY, id)
+        val intent = Intent(this, StockDetailDisplay::class.java)
+        intent.putExtra(STOCK_ID_KEY, id)
         startActivity(intent)
     }
 
