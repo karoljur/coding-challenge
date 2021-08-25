@@ -13,24 +13,34 @@ import com.example.codingchallenge.databinding.StockDetailsDisplayBinding
 import com.example.codingchallenge.models.StockDetail
 
 class StockDetailDisplay(
-    stockId: String,
-    private val stockRepository: StockRepository,
-    lifecycleOwner: LifecycleOwner,
+    stockId: String?,
+    private val stockRepository: StockRepository?,
+    lifecycleOwner: LifecycleOwner?,
     context: Context,
     attrs: AttributeSet? = null
 ) : LinearLayout(context, attrs) {
     private var binding: StockDetailsDisplayBinding? = null
-    private var observer: Observer<StockDetail>? = null
+    private var observer: Observer<StockDetail>
 
     init {
         val inflater = LayoutInflater.from(context)
         binding = DataBindingUtil.inflate(inflater, R.layout.stock_details_display, this, true)
         observer = Observer<StockDetail> { t -> binding?.stockDetail = t }
-        stockRepository.getResponseLiveData().observe(lifecycleOwner, observer!!)
-        stockRepository.getStockDetails(stockId)
+        if (lifecycleOwner != null) {
+            stockRepository?.getResponseLiveData()?.observe(lifecycleOwner, observer)
+        }
+        stockRepository?.getStockDetails(stockId)
     }
+
+    constructor(context: Context, attrs: AttributeSet? = null) : this(
+        null,
+        null,
+        null,
+        context,
+        attrs
+    )
 
     // This function has to be manually invoked when parent component has hit onDestroy callback
     fun onDestroy() =
-        observer?.let { stockRepository.getResponseLiveData().removeObserver(it) }
+        observer.let { stockRepository?.getResponseLiveData()?.removeObserver(it) }
 }
