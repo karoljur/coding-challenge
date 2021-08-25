@@ -1,4 +1,4 @@
-package com.example.codingchallenge.ui
+package com.example.codingchallenge.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -97,7 +97,7 @@ class MainActivity : AppCompatActivity(), StockListListener {
     }
 
     override fun onStockClicked(id: String) {
-        val intent = Intent(this, StockDetailDisplay::class.java)
+        val intent = Intent(this, StockDetailActivity::class.java)
         intent.putExtra(STOCK_ID_KEY, id)
         startActivity(intent)
     }

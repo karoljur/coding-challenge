@@ -1,33 +1,36 @@
 package com.example.codingchallenge.ui
 
-import android.os.Bundle
-import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
+import android.util.AttributeSet
+import android.view.LayoutInflater
+import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.example.codingchallenge.R
 import com.example.codingchallenge.api.StockRepository
 import com.example.codingchallenge.databinding.StockDetailsDisplayBinding
 import com.example.codingchallenge.models.StockDetail
-import com.example.codingchallenge.ui.MainActivity.Companion.STOCK_ID_KEY
 
-class StockDetailDisplay : AppCompatActivity() {
-    private var stockId: String? = null
-    private var stockRepository = StockRepository()
+class StockDetailDisplay(
+    stockId: String,
+    private val stockRepository: StockRepository,
+    lifecycleOwner: LifecycleOwner,
+    context: Context,
+    attrs: AttributeSet? = null
+) : LinearLayout(context, attrs) {
     private var binding: StockDetailsDisplayBinding? = null
     private var observer: Observer<StockDetail>? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.stock_details_display)
-        stockId = intent.getStringExtra(STOCK_ID_KEY)
-        observer = Observer<StockDetail> { t -> binding?.stockDetail = t; Log.d("testtest", "testtest $t") }
-        stockRepository.getResponseLiveData().observe(this, observer!!)
+    init {
+        val inflater = LayoutInflater.from(context)
+        binding = DataBindingUtil.inflate(inflater, R.layout.stock_details_display, this, true)
+        observer = Observer<StockDetail> { t -> binding?.stockDetail = t }
+        stockRepository.getResponseLiveData().observe(lifecycleOwner, observer!!)
         stockRepository.getStockDetails(stockId)
     }
 
-    override fun onDestroy() {
+    // This function has to be manually invoked when parent component has hit onDestroy callback
+    fun onDestroy() =
         observer?.let { stockRepository.getResponseLiveData().removeObserver(it) }
-        super.onDestroy()
-    }
 }
