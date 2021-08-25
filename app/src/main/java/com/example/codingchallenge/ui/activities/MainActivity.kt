@@ -3,13 +3,10 @@ package com.example.codingchallenge.ui.activities
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.codingchallenge.R
 import com.example.codingchallenge.models.StockTicker
 import com.example.codingchallenge.models.StockTickerViewModel
-import com.example.codingchallenge.ui.adapters.StockListAdapter
+import com.example.codingchallenge.ui.StockListDisplay
 import com.example.codingchallenge.ui.listeners.StockListListener
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
@@ -22,19 +19,13 @@ import javax.net.ssl.SSLSocketFactory
 
 class MainActivity : AppCompatActivity(), StockListListener {
     private lateinit var webSocketClient: WebSocketClient
-    private var recyclerView: RecyclerView? = null
-    private var adapter: StockListAdapter? = null
+    private var stockListDisplay: StockListDisplay? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        recyclerView = findViewById(R.id.stockTickerRecycler)
-        adapter = StockListAdapter(this)
-        val layoutManager = LinearLayoutManager(this)
-        val dividerItemDecoration = DividerItemDecoration(this, layoutManager.orientation)
-        recyclerView?.layoutManager = layoutManager
-        recyclerView?.addItemDecoration(dividerItemDecoration)
-        recyclerView?.adapter = adapter
+        stockListDisplay = findViewById(R.id.main_stock_list_display)
+        stockListDisplay?.setStockListListener(this)
     }
 
     override fun onResume() {
@@ -88,7 +79,7 @@ class MainActivity : AppCompatActivity(), StockListListener {
     private fun refreshUI(stockTickersList: List<StockTicker>?) {
         val viewModelsList = ArrayList<StockTickerViewModel>()
         stockTickersList?.forEach { viewModelsList.add(StockTickerViewModel(it)) }
-        adapter?.submitList(viewModelsList)
+        stockListDisplay?.refreshUi(viewModelsList)
     }
 
     private fun subscribe() {
