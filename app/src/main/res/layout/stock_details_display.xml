@@ -49,6 +49,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{stockDetail.address}"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{stockDetail.website}"
+            android:autoLink="web"
+            android:linksClickable="true"/>
+
         <ImageView
             android:layout_width="240dp"
             android:layout_height="240dp"

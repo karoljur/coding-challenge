@@ -16,21 +16,20 @@ import org.java_websocket.handshake.ServerHandshake
 import java.net.URI
 import javax.net.ssl.SSLSocketFactory
 
-
-class MainActivity : AppCompatActivity(), StockListListener {
+class StockListActivity : AppCompatActivity(), StockListListener {
     private lateinit var webSocketClient: WebSocketClient
     private var stockListDisplay: StockListDisplay? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_stock_list)
         stockListDisplay = findViewById(R.id.main_stock_list_display)
         stockListDisplay?.setStockListListener(this)
     }
 
     override fun onResume() {
         super.onResume()
-        initWebSocket()
+        createWebSocketClient(URI(STOCK_TICKER_WEB_SOCKET_URL))
     }
 
     override fun onPause() {
@@ -38,8 +37,10 @@ class MainActivity : AppCompatActivity(), StockListListener {
         webSocketClient.close()
     }
 
-    private fun initWebSocket() {
-        createWebSocketClient(URI(STOCK_TICKER_WEB_SOCKET_URL))
+    override fun onStockClicked(id: String) {
+        val intent = Intent(this, StockDetailActivity::class.java)
+        intent.putExtra(STOCK_ID_KEY, id)
+        startActivity(intent)
     }
 
     private fun createWebSocketClient(stockUri: URI?) {
@@ -79,18 +80,12 @@ class MainActivity : AppCompatActivity(), StockListListener {
     private fun refreshUI(stockTickersList: List<StockTicker>?) {
         val viewModelsList = ArrayList<StockTickerViewModel>()
         stockTickersList?.forEach { viewModelsList.add(StockTickerViewModel(it)) }
-        stockListDisplay?.refreshUi(viewModelsList)
+        stockListDisplay?.setStockTickerList(viewModelsList)
     }
 
     private fun subscribe() {
         // No need to provide any information, we can send empty string
         webSocketClient.send("")
-    }
-
-    override fun onStockClicked(id: String) {
-        val intent = Intent(this, StockDetailActivity::class.java)
-        intent.putExtra(STOCK_ID_KEY, id)
-        startActivity(intent)
     }
 
     companion object {

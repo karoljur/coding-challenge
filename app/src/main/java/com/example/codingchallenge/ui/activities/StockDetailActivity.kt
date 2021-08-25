@@ -6,7 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.codingchallenge.R
 import com.example.codingchallenge.api.StockRepository
 import com.example.codingchallenge.ui.StockDetailDisplay
-import com.example.codingchallenge.ui.activities.MainActivity.Companion.STOCK_ID_KEY
+import com.example.codingchallenge.ui.activities.StockListActivity.Companion.STOCK_ID_KEY
 
 class StockDetailActivity : AppCompatActivity() {
     private var stockId: String? = null

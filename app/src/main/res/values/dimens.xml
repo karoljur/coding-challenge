@@ -3,4 +3,5 @@
     <dimen name="stock_ticker_image_horizontal_margin">8dp</dimen>
     <dimen name="stock_ticker_vertical_margin">8dp</dimen>
     <dimen name="stock_detail_display_margin">16dp</dimen>
+    <dimen name="stock_list_vertical_margin_regular">16dp</dimen>
 </resources>
