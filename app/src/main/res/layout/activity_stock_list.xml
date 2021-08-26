@@ -3,13 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity">
+    tools:context=".ui.activities.StockListActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/stockTickerRecycler"
+    <com.example.codingchallenge.ui.StockListDisplay
+        android:id="@+id/main_stock_list_display"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:overScrollMode="never"
-        tools:listitem="@layout/item_stock_ticker" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>

@@ -4,8 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.13779128672745694" />
+        <entry key="app/src/main/res/layout/activity_stock_detail.xml" value="0.14114583333333333" />
+        <entry key="app/src/main/res/layout/activity_stock_list.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/item_stock_ticker.xml" value="0.165" />
-        <entry key="app/src/main/res/layout/stock_details_display.xml" value="0.14114583333333333" />
+        <entry key="app/src/main/res/layout/stock_details_display.xml" value="0.125" />
+        <entry key="app/src/main/res/layout/stock_list_display.xml" value="0.19610507246376813" />
       </map>
     </option>
   </component>

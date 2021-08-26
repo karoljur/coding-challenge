@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="filterList">
+        <item>Company type</item>
+        <item>Name prefix</item>
+    </string-array>
+</resources>
