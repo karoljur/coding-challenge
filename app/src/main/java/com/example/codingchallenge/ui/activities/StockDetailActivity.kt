@@ -10,7 +10,7 @@ import com.example.codingchallenge.ui.activities.StockListActivity.Companion.STO
 
 class StockDetailActivity : AppCompatActivity() {
     private var stockId: String? = null
-    var stockDetailDisplay: StockDetailDisplay? = null
+    private var stockDetailDisplay: StockDetailDisplay? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

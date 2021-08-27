@@ -3,11 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="stockDetail"
             type="com.example.codingchallenge.models.StockDetail" />
-        <import type="com.example.codingchallenge.utils.PriceUtils"/>
-        <import type="android.view.View"/>
+
+        <import type="com.example.codingchallenge.utils.PriceUtils" />
+
+        <import type="android.view.View" />
     </data>
 
     <LinearLayout
@@ -18,17 +21,23 @@
         android:visibility="@{stockDetail != null ? View.VISIBLE : View.INVISIBLE}">
 
         <TextView
+            android:id="@+id/detail_display_company_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{String.valueOf(stockDetail.companyType)}"/>
+            android:text="@{String.valueOf(stockDetail.companyType)}" />
+
         <TextView
+            android:id="@+id/detail_display_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{stockDetail.name}"/>
+            android:text="@{stockDetail.name}" />
+
         <TextView
+            android:id="@+id/detail_display_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{PriceUtils.INSTANCE.doublePriceRoundedToString(stockDetail.price)}"/>
+            android:text="@{PriceUtils.INSTANCE.doublePriceRoundedToString(stockDetail.price)}" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,31 +46,35 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/all_time_high"/>
+                android:text="@string/all_time_high" />
 
             <TextView
+                android:id="@+id/detail_display_all_time_high"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{PriceUtils.INSTANCE.doublePriceRoundedToString(stockDetail.allTimeHigh)}"/>
+                android:text="@{PriceUtils.INSTANCE.doublePriceRoundedToString(stockDetail.allTimeHigh)}" />
         </LinearLayout>
 
         <TextView
+            android:id="@+id/detail_display_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{stockDetail.address}"/>
+            android:text="@{stockDetail.address}" />
 
         <TextView
+            android:id="@+id/detail_display_website"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{stockDetail.website}"
             android:autoLink="web"
-            android:linksClickable="true"/>
+            android:linksClickable="true" />
 
         <ImageView
+            android:id="@+id/detail_display_company_photo"
             android:layout_width="240dp"
             android:layout_height="240dp"
             android:layout_gravity="center"
             android:contentDescription="@string/content_description_company_photo"
-            app:loadImage="@{stockDetail.imageUrl}"/>
+            app:loadImage="@{stockDetail.imageUrl}" />
     </LinearLayout>
 </layout>

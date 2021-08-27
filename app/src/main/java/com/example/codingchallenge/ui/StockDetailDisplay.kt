@@ -19,13 +19,14 @@ class StockDetailDisplay(
     context: Context,
     attrs: AttributeSet? = null
 ) : LinearLayout(context, attrs) {
-    private var binding: StockDetailsDisplayBinding? = null
+    var binding: StockDetailsDisplayBinding? = null
     private var observer: Observer<StockDetail>
 
     init {
         val inflater = LayoutInflater.from(context)
         binding = DataBindingUtil.inflate(inflater, R.layout.stock_details_display, this, true)
         observer = Observer<StockDetail> { t -> binding?.stockDetail = t }
+
         if (lifecycleOwner != null) {
             stockRepository?.getResponseLiveData()?.observe(lifecycleOwner, observer)
         }

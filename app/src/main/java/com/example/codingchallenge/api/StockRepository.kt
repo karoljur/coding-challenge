@@ -28,18 +28,20 @@ class StockRepository {
     }
 
     fun getStockDetails(id: String?) {
-        stockService.getStockDetails(id).enqueue(object: Callback<StockDetail> {
+        getStockService().getStockDetails(id).enqueue(object: Callback<StockDetail> {
             override fun onResponse(call: Call<StockDetail>, response: Response<StockDetail>) {
-                stockResponseLiveData.postValue(response.body())
+                getResponseLiveData().postValue(response.body())
             }
 
             override fun onFailure(call: Call<StockDetail>, t: Throwable) {
-                stockResponseLiveData.postValue(null)
+                getResponseLiveData().postValue(null)
             }
         })
     }
 
     fun getResponseLiveData() = stockResponseLiveData
+
+    fun getStockService() = stockService
 
     companion object {
         private const val BASE_URL = "https://interviews.yum.dev/api/"
